@@ -6,5 +6,3 @@ build_project:
   script:
     - xcodebuild clean -project xcuitestproject.xcodeproj -scheme xcuitestprojectUITests | xcpretty
     - xcodebuild test -project xcuitestproject.xcodeproj -scheme xcuitestprojectUITests -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.5' | xcpretty -s
-  tags:
-    - mac-intel-latest
