@@ -1,24 +1,10 @@
 stages:
   - build
-  - archive
 
 build_project:
   stage: build
   script:
     - xcodebuild clean -project xcuitestproject.xcodeproj -scheme xcuitestprojectUITests | xcpretty
     - xcodebuild test -project xcuitestproject.xcodeproj -scheme xcuitestprojectUITests -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.5' | xcpretty -s
-  tags:
-    - mac-intel-latest
-
-archive_project:
-  stage: archive
-  script:
-    - xcodebuild clean archive -archivePath build/CITest -scheme xcuitestprojectUITests
-    - xcodebuild -exportArchive -exportFormat ipa -archivePath "build/xcuitestprojectUITests.xcarchive" -exportPath "build/CITest.ipa" -exportProvisioningProfile ""
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  artifacts:
-    paths:
-      - build/xcuitestproject.ipa
   tags:
     - mac-intel-latest
