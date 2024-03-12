@@ -9,12 +9,14 @@ variables:
 before_script:
   - xcode-select --install || true
   - sudo xcode-select --install || true
-  - sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+  - sudo xcode-select --reset
 
 xcuitest_setup:
   stage: setup
   script:
-    - xcodebuild -resolvePackageDependencies
+    - xcode-select --install || true  # Try installing again
+    - sudo xcode-select --install || true  # Try installing again with elevated privileges
+    - sudo xcode-select --reset  # Reset the Xcode path
     - gem install bundler
     - bundle install
 
