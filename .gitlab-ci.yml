@@ -5,7 +5,7 @@ stages:
 
 xcode:
   # Replace with the version you need
-  version: 13.X  # Update with your desired Xcode version
+  version: 13.0  # Update with your desired Xcode version
 
 cache:
   paths:
@@ -21,6 +21,6 @@ test:
     - xctest -workspace xcuitestproject.xcodeproj/ -scheme xcuitestprojectUITests -destination "platform=iOS Simulator,name=iPhone 13 Pro"
   artifacts:
     paths:
-      - DerivedData/Build/Products/Debug-iphonesimulator/your_app.app  # Replace with your app name
+      - DerivedData/Build/Products/Debug-iphonesimulator/xcuitestproject.app  # Replace with your app name
       - logs/**/*.log
 
