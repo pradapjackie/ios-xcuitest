@@ -8,6 +8,7 @@ variables:
 
 before_script:
   - xcode-select --install || true
+  - sudo xcode-select --install || true
   - sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
 
 xcuitest_setup:
