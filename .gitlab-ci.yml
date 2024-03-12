@@ -1,24 +1,26 @@
+image: xcode/latest
+
 stages:
   - test
 
-variables:
-  XCODE_VERSION: "12.5"
-  SIMULATOR_DEVICE: "iPhone 12"
+xcode:
+  # Replace with the version you need
+  version: 13.X  # Update with your desired Xcode version
+
+cache:
+  paths:
+    - cocoapods/DerivedData
 
 before_script:
-  - apt-get update -qy
-  - apt-get install -y ruby-full
-  - gem install bundler
-  - bundle install
-  - bundle exec pod install
+  - fastlane install_pods # Assuming you use CocoaPods
 
-xcode_test:
+test:
   stage: test
   script:
-    - xcode-select --install || true
-    - xcodebuild -version -sdk
+    - xcodebuild clean build -workspace xcuitestproject.xcodeproj/ -scheme xcuitestproject -destination "platform=iOS Simulator,name=iPhone 13 Pro"
+    - xctest -workspace xcuitestproject.xcodeproj/ -scheme xcuitestprojectUITests -destination "platform=iOS Simulator,name=iPhone 13 Pro"
+  artifacts:
+    paths:
+      - DerivedData/Build/Products/Debug-iphonesimulator/your_app.app  # Replace with your app name
+      - logs/**/*.log
 
-    # Install necessary tools
-    - gem install xcpretty
-
-    - xcodebuild test -project xcuitestproject.xcodeproj -scheme xcuitestprojectUITests -destination "platform=iOS Simulator,name=$SIMULATOR_DEVICE" | xcpretty -c
