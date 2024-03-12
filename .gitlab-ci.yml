@@ -1,0 +1,31 @@
+stages:
+  - test
+
+variables:
+  # Define variables such as your Xcode version, simulator device, etc.
+  XCODE_VERSION: "12.5"
+  SIMULATOR_DEVICE: "iPhone 12"
+
+before_script:
+  # Install required dependencies, e.g., CocoaPods
+  - gem install bundler
+  - bundle install
+  - bundle exec pod install
+
+  # Install required tools, e.g., xcpretty
+  - gem install xcpretty
+
+# Define the test job
+xcode_test:
+  stage: test
+  script:
+    # Set up the Xcode environment
+    - xcode-select --install
+    - xcodebuild -version -sdk
+
+    # Build and test the project
+    - xcodebuild clean build -project xcuitestproject.xcodeproj -scheme YourScheme -destination "platform=iOS Simulator,name=$SIMULATOR_DEVICE" | xcpretty -c
+    - xcodebuild test -project xcuitestproject.xcodeproj -scheme YourTestScheme -destination "platform=iOS Simulator,name=$SIMULATOR_DEVICE" | xcpretty -c
+    - ls
+
+# Add other jobs or configurations as needed
