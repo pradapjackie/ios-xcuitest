@@ -17,8 +17,8 @@ before_script:
 test:
   stage: test
   script:
-    - xcodebuild clean build -workspace xcuitestproject.xcodeproj/ -scheme xcuitestproject -destination "platform=iOS Simulator,name=iPhone 13 Pro"
-    - xctest -workspace xcuitestproject.xcodeproj/ -scheme xcuitestprojectUITests -destination "platform=iOS Simulator,name=iPhone 13 Pro"
+    - xcodebuild  test  -project xcuitestproject.xcodeproj/ -scheme xcuitestprojectUITests -destination 'platform=iOS Simulator,name=iPhone 15'
+    # - xctest -workspace xcuitestproject.xcodeproj/ -scheme xcuitestprojectUITests -destination "platform=iOS Simulator,name=iPhone 13 Pro"
   artifacts:
     paths:
       - DerivedData/Build/Products/Debug-iphonesimulator/xcuitestproject.app  # Replace with your app name
