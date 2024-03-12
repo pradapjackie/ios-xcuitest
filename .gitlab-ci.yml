@@ -3,24 +3,15 @@ image: xcode/latest
 stages:
   - test
 
-xcode:
-  # Replace with the version you need
-  version: 13  # Update with your desired Xcode version
+variables:
+  XCODE_SCHEME: "xcuitestprojectUITests"
+  XCODE_DESTINATION: "platform=iOS Simulator,name=iPhone 15"
 
-cache:
-  paths:
-    - cocoapods/DerivedData
-
-before_script:
-  - fastlane install_pods # Assuming you use CocoaPods
-
-test:
+xcuitest:
   stage: test
   script:
-    - xcodebuild  test  -project xcuitestproject.xcodeproj/ -scheme xcuitestprojectUITests -destination 'platform=iOS Simulator,name=iPhone 15'
-    # - xctest -workspace xcuitestproject.xcodeproj/ -scheme xcuitestprojectUITests -destination "platform=iOS Simulator,name=iPhone 13 Pro"
+    - xcodebuild test -project xcuitestproject.xcodeproj/ -scheme $XCODE_SCHEME -destination "$XCODE_DESTINATION"
   artifacts:
     paths:
-      - DerivedData/Build/Products/Debug-iphonesimulator/xcuitestproject.app  # Replace with your app name
-      - logs/**/*.log
+      - "path/to/your/test/reports/*.xcresult"
 
