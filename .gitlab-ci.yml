@@ -1,9 +1,21 @@
 stages:
+  - setup
   - test
 
 variables:
   XCODE_SCHEME: "xcuitestprojectUITests"
   XCODE_DESTINATION: "platform=iOS Simulator,name=iPhone 15"
+
+before_script:
+  - xcode-select --install || true
+  - sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+
+xcuitest_setup:
+  stage: setup
+  script:
+    - xcodebuild -resolvePackageDependencies
+    - gem install bundler
+    - bundle install
 
 xcuitest:
   stage: test
