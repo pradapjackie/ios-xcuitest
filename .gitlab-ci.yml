@@ -5,7 +5,7 @@ stages:
 
 xcode:
   # Replace with the version you need
-  version: 13.0  # Update with your desired Xcode version
+  version: 13  # Update with your desired Xcode version
 
 cache:
   paths:
