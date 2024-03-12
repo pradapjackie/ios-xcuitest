@@ -1,4 +1,4 @@
-image: xcode/latest
+image: appleboy/xcode:latest
 
 stages:
   - setup
@@ -9,9 +9,8 @@ variables:
   XCODE_DESTINATION: "platform=iOS Simulator,name=iPhone 15"
 
 before_script:
-  - xcode-select --install || true
-  - sudo xcode-select --install || true
-  - sudo xcode-select --reset
+  - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+
 
 xcuitest_setup:
   stage: setup
