@@ -21,6 +21,4 @@ xcode_test:
     # Install necessary tools
     - gem install xcpretty
 
-    # Build and test the project
-    - xcodebuild clean build -project xcuitestproject.xcodeproj -scheme xcuitestproject -destination "platform=iOS Simulator,name=$SIMULATOR_DEVICE" | xcpretty -c
     - xcodebuild test -project xcuitestproject.xcodeproj -scheme xcuitestprojectUITests -destination "platform=iOS Simulator,name=$SIMULATOR_DEVICE" | xcpretty -c
