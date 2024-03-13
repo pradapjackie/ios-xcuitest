@@ -4,6 +4,8 @@ stages:
 build_project:
   stage: build
   script:
+    - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    - brew install xcode
     - sudo xcode-select --switch /  # Install Xcode command-line tools if not already installed
     - gem install xcpretty     
     - xcodebuild clean -project xcuitestproject.xcodeproj -scheme xcuitestprojectUITests | xcpretty
