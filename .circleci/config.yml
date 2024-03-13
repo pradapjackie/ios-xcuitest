@@ -1,23 +1,46 @@
+# .circleci/config.yml
 version: 2.1
-
 jobs:
-  build:
+  build-and-test:
     macos:
-      xcode: "15.2"  # Choose the desired Xcode version
+      xcode: 14.0.1
+    environment:
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: test
     steps:
       - checkout
-
-      # Install any necessary dependencies (if needed)
-      # For example, you might install Homebrew packages or other dependencies here
-
-      # # Build and run XCUITests
-      # - run:
-      #     name: Build and run XCUITests
-      #     command: |
-      #       xcodebuild -workspace YourWorkspace.xcworkspace -scheme YourScheme -destination 'platform=iOS Simulator,name=iPhone 13,OS=14.5' clean test
-
-      # Build and run XCUITests
+      - run: bundle install
       - run:
-          name: Build and run XCUITests
-          command: |
-            xcodebuild clean test -project xcuitestproject.xcodeproj -scheme xcuitestprojectUITests -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.2' | xcpretty -c
+          name: Fastlane
+          command: bundle exec fastlane $FASTLANE_LANE
+      - store_artifacts:
+          path: output
+      - store_test_results:
+          path: output/scan
+
+  adhoc:
+    macos:
+      xcode: 14.0.1
+    environment:
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: adhoc
+    steps:
+      - checkout
+      - run: bundle install
+      - run:
+          name: Fastlane
+          command: bundle exec fastlane $FASTLANE_LANE
+      - store_artifacts:
+          path: output
+
+workflows:
+  build-test-adhoc:
+    jobs:
+      - build-and-test
+      - adhoc:
+          filters:
+            branches:
+              only: development
+          requires:
+            - build-and-test
+    
