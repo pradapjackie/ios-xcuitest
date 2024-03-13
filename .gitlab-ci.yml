@@ -5,6 +5,8 @@ build_project:
   stage: build
   script:
     - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    - (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /root/.bashrc
+    - eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     - brew install xcode
     - sudo xcode-select --switch /  # Install Xcode command-line tools if not already installed
     - gem install xcpretty     
