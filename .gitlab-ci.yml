@@ -1,10 +1,13 @@
 stages:
+  - build
   - test
+  - archive
+  - deploy
 
-test:
-  stage: test
-  image: macos  # Use the macOS runner image
+build_project:
+  stage: build
   script:
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - xcodebuild clean -project xcuitestproject.xcodeproj -scheme xcuitestprojectUITests | xcpretty
-    - xcodebuild test -project xcuitestproject.xcodeproj -scheme xcuitestprojectUITests -destination 'platform=iOS Simulator,name=iPhone 
+    - xcodebuild test -project xcuitestproject.xcodeproj -scheme xcuitestprojectUITests -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.5' | xcpretty -s
+  tags:
+    - mac
