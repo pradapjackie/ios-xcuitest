@@ -3,7 +3,6 @@ stages:
 
 build_project:
   stage: build
-  image: macos  # Use a macOS runner image
   script:
     - xcode-select --install  # Install Xcode command-line tools if not already installed
     - gem install xcpretty     
