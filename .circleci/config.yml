@@ -1,0 +1,21 @@
+version: 2.1
+
+jobs:
+  build:
+    macos:
+      xcode: "12.5.1"  # Choose the desired Xcode version
+    steps:
+      - checkout
+
+      # Restore dependencies (e.g., CocoaPods)
+      - run:
+          name: Install CocoaPods
+          command: |
+            gem install cocoapods
+            pod install
+
+      # Build and run XCUITests
+      - run:
+          name: Build and run XCUITests
+          command: |
+            xcodebuild -workspace YourWorkspace.xcworkspace -scheme YourScheme -destination 'platform=iOS Simulator,name=iPhone 13,OS=14.5' clean test | xcpretty -c
