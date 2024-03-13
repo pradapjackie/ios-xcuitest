@@ -7,15 +7,17 @@ jobs:
     steps:
       - checkout
 
-      # Restore dependencies (e.g., CocoaPods)
-      - run:
-          name: Install CocoaPods
-          command: |
-            gem install cocoapods
-            pod install
+      # Install any necessary dependencies (if needed)
+      # For example, you might install Homebrew packages or other dependencies here
+
+      # # Build and run XCUITests
+      # - run:
+      #     name: Build and run XCUITests
+      #     command: |
+      #       xcodebuild -workspace YourWorkspace.xcworkspace -scheme YourScheme -destination 'platform=iOS Simulator,name=iPhone 13,OS=14.5' clean test
 
       # Build and run XCUITests
       - run:
           name: Build and run XCUITests
           command: |
-            xcodebuild test -project xcuitestproject.xcodeproj -scheme xcuitestprojectUITests -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.5' | xcpretty -s clean test | xcpretty -c
+            xcodebuild clean test -project xcuitestproject.xcodeproj -scheme xcuitestprojectUITests -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.5' | xcpretty -c
