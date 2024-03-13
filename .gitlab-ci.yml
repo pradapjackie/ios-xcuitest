@@ -1,15 +1,9 @@
 stages:
-- build
-- test
-build:
-   stage: build
-   script: 
-   - fastlane build_for_testing
-   artifacts:
-      when: on_success
-      paths:
-      - build/**/*.xctest
+  - test
+
 test:
-   stage: test
-   script:
-   - fastlane test
+  stage: test
+  image: macos  # Use the macOS runner image
+  script:
+    - xcodebuild clean -project xcuitestproject.xcodeproj -scheme xcuitestprojectUITests | xcpretty
+    - xcodebuild test -project xcuitestproject.xcodeproj -scheme xcuitestprojectUITests -destination 'platform=iOS Simulator,name=iPhone 
