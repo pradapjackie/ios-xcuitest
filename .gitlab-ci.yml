@@ -1,8 +1,9 @@
 stages:
-  - build
+  - test
 
-build_project:
-  stage: build
+xcode_tests:
+  stage: test
+  image: swiftlang/swift:latest  # Choose an appropriate image with Xcode and Swift
   script:
     - xcodebuild clean -project xcuitestproject.xcodeproj -scheme xcuitestprojectUITests | xcpretty
     - xcodebuild test -project xcuitestproject.xcodeproj -scheme xcuitestprojectUITests -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.5' | xcpretty -s
