@@ -20,4 +20,4 @@ jobs:
       - run:
           name: Build and run XCUITests
           command: |
-            xcodebuild clean test -project xcuitestproject.xcodeproj -scheme xcuitestprojectUITests -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.2' | xcpretty -c
+            xcodebuild clean test -project xcuitestproject.xcodeproj -scheme xcuitestprojectUITests -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.2' | xcpretty -c
