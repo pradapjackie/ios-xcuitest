@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     macos:
-      xcode: "15"  # Choose the desired Xcode version
+      xcode: "15.2"  # Choose the desired Xcode version
     steps:
       - checkout
 
